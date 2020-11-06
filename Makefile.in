@@ -32,24 +32,24 @@ exec_prefix =		@exec_prefix@
 # The following definition can be set to non-null for special systems
 # like AFS with replication.  It allows the pathnames used for installation
 # to be different than those used for actually reference files at
-# run-time.  INSTALL_ROOT is prepended to $prefix and $exec_prefix
+# run-time.  DESTDIR is prepended to $prefix and $exec_prefix
 # when installing files.
-INSTALL_ROOT =
+DESTDIR =
 
 # Directory in which to install the .a or .so binary for the XPA library:
-LIB_INSTALL_DIR =	$(INSTALL_ROOT)$(exec_prefix)/lib
+LIB_INSTALL_DIR =	$(DESTDIR)$(exec_prefix)/lib
 
 # Directory in which to install the program wish:
-BIN_INSTALL_DIR =	$(INSTALL_ROOT)$(exec_prefix)/bin
+BIN_INSTALL_DIR =	$(DESTDIR)$(exec_prefix)/bin
 
 # Directory in which to install the include file xpa.h:
-INCLUDE_INSTALL_DIR =	$(INSTALL_ROOT)$(prefix)/include
+INCLUDE_INSTALL_DIR =	$(DESTDIR)$(prefix)/include
 
 # Top-level directory for manual entries:
-MAN_INSTALL_DIR =	$(INSTALL_ROOT)$(prefix)/man
+MAN_INSTALL_DIR =	$(DESTDIR)$(prefix)/man
 
 # Top-level directory for share entries:
-MAN_SHARE_DIR =		$(INSTALL_ROOT)$(prefix)/share/xpa
+MAN_SHARE_DIR =		$(DESTDIR)$(prefix)/share/xpa
 
 # Platform-specific X compiler flags (include file specifications)
 X_CFLAGS = 		@X_CFLAGS@
