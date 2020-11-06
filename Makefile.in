@@ -43,7 +43,7 @@ LIB_INSTALL_DIR =	$(INSTALL_ROOT)$(exec_prefix)/lib
 BIN_INSTALL_DIR =	$(INSTALL_ROOT)$(exec_prefix)/bin
 
 # Directory in which to install the include file xpa.h:
-INCLUDE_INSTALL_DIR =	$(INSTALL_ROOT)$(prefix)/include
+INCLUDE_INSTALL_DIR =	$(DESTDIR)$(prefix)/include/xpa
 
 # Top-level directory for manual entries:
 MAN_INSTALL_DIR =	$(INSTALL_ROOT)$(prefix)/man
@@ -139,7 +139,7 @@ XT_OBJS =	xtloop.o
 
 GTK_OBJS =	gtkloop.o
 
-INCL	=	xpa.h xpap.h
+INCL	=	include/xpa.h xpap.h
 
 # these are all the modules going into the "normal" xpa library
 LIBOBJS =	${BASE_OBJS} ${TCL_OBJS} ${XT_OBJS} ${GTK_OBJS}
@@ -284,10 +284,10 @@ install-binaries: $(LIB) $(PROGS)
 	@$(INSTALL_DATA) $(LIB) $(LIB_INSTALL_DIR)/$(LIB);
 	@(cd $(LIB_INSTALL_DIR); $(RANLIB) $(LIB));
 	@chmod 555 $(LIB_INSTALL_DIR)/$(LIB);
-	@echo "Installing xpa.h"
-	@$(INSTALL_DATA) xpa.h $(INCLUDE_INSTALL_DIR)/xpa.h
-	@echo "Installing prsetup.h"
-	@$(INSTALL_DATA) prsetup.h $(INCLUDE_INSTALL_DIR)/prsetup.h
+	@echo "Installing include/xpa.h"
+	@$(INSTALL_DATA) include/xpa.h $(INCLUDE_INSTALL_DIR)/xpa.h
+	@echo "Installing include/prsetup.h"
+	@$(INSTALL_DATA) include/prsetup.h $(INCLUDE_INSTALL_DIR)/prsetup.h
 	@for i in $(PROGS) ; \
 	    do \
 	        echo "Installing $$i$(EXE)" ; \
@@ -449,13 +449,13 @@ strstr.o:	./compat/strstr.c
 		$(CC) -c $(CC_SWITCHES) -o strstr.o ./compat/strstr.c
 
 xpa.h:		configure.ac
-		@($(RM) -r oxpa.h; \
+		@($(RM) -r include/oxpa.h; \
 		MAJOR=`echo "${VERSION}" | awk -F. '{print $$1}'`; \
 		MINOR=`echo "${VERSION}" | awk -F. '{print $$2}'`; \
 		PATCH=`echo "${VERSION}" | awk -F. '{print $$3}'`; \
-		sed "s/^#define XPA_VERSION.*/#define XPA_VERSION \"$(VERSION)\"/;s/^#define XPA_MAJOR_VERSION.*/#define XPA_MAJOR_VERSION $${MAJOR}/;s/^#define XPA_MINOR_VERSION.*/#define XPA_MINOR_VERSION $${MINOR}/;s/^#define XPA_PATCH_LEVEL.*/#define XPA_PATCH_LEVEL $${PATCH}/;" < xpa.h > nxpa.h; \
-		mv xpa.h oxpa.h; \
-		mv nxpa.h xpa.h)
+		sed "s/^#define XPA_VERSION.*/#define XPA_VERSION \"$(VERSION)\"/;s/^#define XPA_MAJOR_VERSION.*/#define XPA_MAJOR_VERSION $${MAJOR}/;s/^#define XPA_MINOR_VERSION.*/#define XPA_MINOR_VERSION $${MINOR}/;s/^#define XPA_PATCH_LEVEL.*/#define XPA_PATCH_LEVEL $${PATCH}/;" < include/xpa.h > include/nxpa.h; \
+		mv include/xpa.h include/oxpa.h; \
+		mv include/nxpa.h include/xpa.h)
 
 configure:	configure.ac
 		autoconf

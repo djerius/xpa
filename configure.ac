@@ -4,7 +4,7 @@
 AC_INIT(xpa, 2.1.20, eric@cfa.harvard.edu, xpa)
 
 AC_CONFIG_HEADERS([conf.h])
-AC_CONFIG_SRCDIR(./xpa.h)
+AC_CONFIG_SRCDIR(./xpa.c)
 AC_CANONICAL_HOST
 
 # save LDFLAGS
